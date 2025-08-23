@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-k4_hb#()y#5+9jop(&cc)+kco75tzzayp$*24%$m0576z=fz3=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['wear-org.onrender.com']
+ALLOWED_HOSTS = ['wearuz.onrender.com']
 
 
 # Application definition
