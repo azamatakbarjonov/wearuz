@@ -684,7 +684,7 @@ async function fetchProducts(){
   PRODUCTS = data.map(p => ({
     id:   p.id,
     name: p.name,
-    img:  p.image, // DRF serializer da to‘liq URL bo‘lsa — super
+    img: API_BASE + p.image, // DRF serializer da to‘liq URL bo‘lsa — super
     price: parseFloat(p.price),
     cat:  p.category,
     stocks: p.stocks || [],
