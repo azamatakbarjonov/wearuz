@@ -1,0 +1,349 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* === NAVBAR === */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, background 0.4s ease;
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #2563eb, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.3rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: #2563eb;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #0f172a;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                width: 220px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                transform: translateX(100%);
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            nav a {
+                padding: 1rem;
+                border-bottom: 1px solid #eee;
+            }
+
+            nav.active {
+                transform: translateX(0);
+                opacity: 1;
+                pointer-events: auto;
+                transition: 0.4s ease;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: url('https://wallpaperswide.com/download/blue_neon-wallpaper-1920x1200.jpg') center/cover no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease forwards;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            max-width: 600px;
+            z-index: 1;
+            animation: fadeInUp 2s ease forwards;
+        }
+
+        .hero button {
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            background: linear-gradient(45deg, #38bdf8, #a78bfa);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.7);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1;
+        }
+
+        .hero button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.9);
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === CARDS === */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+
+            /* Oddiy background rasm */
+            background: url('https://www.ewool.ru/wa-data/public/shop/products/04/29/2904/images/2646/2646.970.jpeg') center/cover no-repeat;
+            border: aqua;
+            border-radius: 10px;
+        }
+
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .card:hover {
+            transform: perspective(1000px) rotateY(10deg) rotateX(5deg) scale(1.05);
+            box-shadow: 0 20px 50px rgba(56, 189, 248, 0.5);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #38bdf8;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+.trend {
+    padding: 3rem 2rem;
+    background: url('https://avatars.mds.yandex.net/i?id=80cae0121328c07307f44d5a47aaad8a_l-5885375-images-thumbs&n=13') center/cover no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+.trend::before {
+    content:'';
+    position: absolute;
+    inset:0;
+    background: rgba(0,0,0,0.5);
+}
+
+.trend h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    background: linear-gradient(45deg, #38bdf8, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 10px rgba(56,189,248,0.6);
+}
+
+.trend-container {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+    perspective: 1000px;
+    z-index: 1;
+    position: relative;
+}
+
+.trend-container::-webkit-scrollbar {
+    display: none;
+}
+
+.trend-item {
+    min-width: 180px;
+    background: rgba(30, 93, 169, 0.7);
+    border-radius: 20px;
+    text-align: center;
+    padding: 1rem;
+    flex-shrink: 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transform: rotateY(0deg) rotateX(0deg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid #38bdf8;
+    position: relative;
+}
+
+.trend-item img {
+    width: 160px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 5px 20px rgba(56,189,248,0.5);
+    transition: transform 0.3s ease;
+}
+
+.trend-item h3 {
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    transition: text-shadow 0.3s;
+}
+
+.trend-item p {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #38bdf8;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.trend-item:hover {
+    transform: rotateY(10deg) rotateX(10deg) scale(1.08);
+    box-shadow: 0 20px 50px rgba(56,189,248,0.8);
+}
+
+.trend-item:hover img {
+    transform: scale(1.1) rotateZ(2deg);
+}
+
+.trend-item:hover h3 {
+    text-shadow: 0 0 15px #38bdf8, 0 0 25px #a78bfa;
+}
+
+
+        /* === FOOTER === */
+        footer {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #0f172a;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+            border-top: 1px solid #eee;
+        }
+
+        footer span {
+            background: linear-gradient(45deg, #2563eb, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+
+
+        
