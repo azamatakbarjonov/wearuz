@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>BZA Fashion — Full Shop (3D, Trend, Creative)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;--panel:#0e1633;--panel-2:#0d1330;--text:#eaf1ff;--muted:#a8b2d1;--primary:#5cc8ff;--primary-2:#9be7ff;--accent:#ffe28a;--ok:#53e2ae;--danger:#ff7a7a;--pink:#ff8af2;--vio:#8aa2ff;--card:rgba(255,255,255,.08);--glass:rgba(255,255,255,.06);--b1:rgba(255,255,255,.12);--shadow:0 18px 50px rgba(0,0,0,.55);--radius:18px
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{height:100%}
+    body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:
+      radial-gradient(1200px 600px at 0% 0%, rgba(92,200,255,.12), transparent 60%),
+      radial-gradient(1200px 600px at 100% 0%, rgba(255,226,138,.12), transparent 60%),
+      linear-gradient(180deg,#0b1020 0%,#0b0f1a 100%);
+      overflow-x:hidden}
+
+    /* ===== Floating gradient blobs (ambient background) ===== */
+    .blob{position:fixed;inset:auto;z-index:-1;filter:blur(50px);opacity:.55;pointer-events:none}
+    .blob.a{width:420px;height:420px;left:-120px;top:-100px;background:radial-gradient(circle at 30% 30%,#5cc8ff,transparent 60%)}
+    .blob.b{width:420px;height:420px;right:-160px;top:-60px;background:radial-gradient(circle at 70% 40%,#ffe28a,transparent 60%)}
+    .blob.c{width:480px;height:480px;left:20%;bottom:-180px;background:radial-gradient(circle at 50% 50%,#8aa2ff,transparent 60%)}
+
+    /* ===== Sticky Header ===== */
+    .header{position:sticky;top:0;z-index:40;backdrop-filter:blur(12px);background:linear-gradient(180deg,rgba(11,16,32,.9),rgba(11,16,32,.55));padding:10px 14px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .row{display:flex;align-items:center;gap:10px}
+    .brand{font-family:Poppins, sans-serif;font-weight:800;letter-spacing:.5px;font-size:20px}
+    .brand .spark{display:inline-block;transform:translateY(-2px);filter:drop-shadow(0 2px 8px rgba(255,226,138,.45))}
+    .pill{flex:1;display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--b1);box-shadow:var(--shadow)}
+    .pill input{flex:1;background:transparent;border:0;outline:none;color:var(--text);font-size:14px}
+    .icon{width:22px;height:22px;display:grid;place-items:center}
+    .cart-btn{position:relative;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--b1);background:rgba(255,255,255,.1);box-shadow:var(--shadow)}
+    .badge{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#1a1a1a;font-weight:800;font-size:11px;border-radius:999px;padding:4px 6px;border:2px solid #0b0f1a;min-width:22px;text-align:center}
+
+    /* ===== Hero with 3D tilt + parallax glow ===== */
+    .hero{padding:18px 14px 6px}
+    .hero-card{position:relative;overflow:hidden;border-radius:var(--radius);background:linear-gradient(135deg, rgba(92,200,255,.18), rgba(255,226,138,.18));border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow);perspective:1000px}
+    .hero-inner{padding:24px;display:grid;gap:12px;transform-style:preserve-3d;transition:transform .2s ease}
+    .hero h1{margin:0;font-family:Poppins,sans-serif;font-size:28px;line-height:1.15}
+    .hero p{margin:0;color:var(--muted)}
+    .hero-cta{display:inline-flex;gap:8px;align-items:center;margin-top:12px;background:#101833;border:1px solid rgba(255,255,255,.1);padding:12px 14px;border-radius:12px;text-decoration:none;color:var(--text);font-weight:700}
+    .shine{position:absolute;inset:-200px;background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.25),transparent 30%);filter:blur(22px);animation:spin 7s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* ===== Animated counters / stat chips under Hero ===== */
+    .stats{display:flex;gap:10px;padding:10px 2px;margin:6px 14px 0}
+    .stat{flex:1;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:10px;text-align:center;box-shadow:var(--shadow)}
+    .stat .k{font-weight:900;font-size:18px}
+    .stat .t{font-size:12px;color:var(--muted)}
+
+    /* ===== Trend Marquee ===== */
+    .section-title{padding:14px 16px 6px;font-weight:800;font-family:Poppins,sans-serif}
+    .trend-strip{position:relative;padding:6px 0 4px;overflow:hidden}
+    .trend-track{display:flex;gap:10px;padding-left:16px;will-change:transform}
+    .chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--b1);font-size:13px;font-weight:700;box-shadow:var(--shadow)}
+    .chip img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+
+    /* ===== Category filters ===== */
+    .filters{display:flex;gap:8px;overflow:auto;padding:8px 16px 2px}
+    .btn{padding:10px 12px;border-radius:12px;border:1px solid var(--b1);background:var(--glass);color:var(--text);font-weight:700}
+    .btn.active{outline:2px solid var(--primary);background:rgba(92,200,255,.18)}
+
+    /* ===== Product grid ===== */
+    .grid{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px;padding:10px 14px 120px}
+    .card{position:relative;overflow:hidden;border-radius:16px;background:var(--panel);border:1px solid var(--b1);box-shadow:var(--shadow);transform-style:preserve-3d;perspective:900px;transition:transform .15s ease-out, box-shadow .15s ease-out}
+    .card:hover{box-shadow:0 22px 60px rgba(0,0,0,.6)}
+    .card-media{position:relative;aspect-ratio:1/1;overflow:hidden}
+    .card-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);will-change:transform;transition:transform .25s ease}
+    .card:hover .card-media img{transform:scale(1.06)}
+    .tag{position:absolute;top:8px;left:8px;background:rgba(255,255,255,.92);color:#111;font-size:11px;padding:6px 8px;border-radius:999px;font-weight:900}
+    .fav{position:absolute;top:8px;right:8px;width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:rgba(0,0,0,.35);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.18)}
+    .glow{position:absolute;inset:auto;width:120%;height:120%;left:-10%;top:-10%;background:radial-gradient(circle at 50% 30%, rgba(92,200,255,.15), transparent 40%), radial-gradient(circle at 20% 80%, rgba(255,138,242,.12), transparent 45%), radial-gradient(circle at 80% 70%, rgba(83,226,174,.14), transparent 40%);mix-blend-mode:screen;pointer-events:none}
+
+    .card-body{padding:10px 10px 12px;display:grid;gap:8px}
+    .title{font-weight:800;font-size:14px;line-height:1.2;min-height:34px}
+    .price-row{display:flex;align-items:center;justify-content:space-between}
+    .price{font-weight:900;font-size:16px}
+    .add{border:0;border-radius:12px;padding:10px 12px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#0a0f20;box-shadow:0 14px 30px rgba(92,200,255,.35)}
+
+    /* ===== Quick actions bar ===== */
+    .tabbar{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:45;display:flex;align-items:center;gap:10px}
+    .fab{display:inline-flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;background:linear-gradient(135deg,var(--primary),#9be7ff);color:#0b0f1a;font-weight:900;border:0;box-shadow:0 18px 40px rgba(92,200,255,.45)}
+
+    /* ===== Cart drawer ===== */
+    .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:50;opacity:0;pointer-events:none;transition:opacity .2s ease}
+    .drawer{position:fixed;left:0;right:0;bottom:0;z-index:60;transform:translateY(110%);transition:transform .28s ease}
+    .drawer-inner{background:#0f1733;border-top-left-radius:18px;border-top-right-radius:18px;border:1px solid var(--b1);box-shadow:0 -20px 50px rgba(0,0,0,.6)}
+    .drawer-handle{width:48px;height:5px;border-radius:99px;background:rgba(255,255,255,.25);margin:10px auto}
+    .drawer-header{padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+    .drawer-title{font-weight:800;font-family:Poppins,sans-serif}
+    .drawer-body{padding:0 16px 16px;max-height:55vh;overflow:auto}
+    .empty{text-align:center;color:var(--muted);padding:18px}
+    .item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+    .item img{width:64px;height:64px;border-radius:10px;object-fit:cover}
+    .qty{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:6px 8px}
+    .qty button{width:28px;height:28px;border-radius:10px;background:var(--glass);color:var(--text);border:0;font-size:18px;font-weight:800}
+    .drawer-footer{padding:12px 16px 16px;display:grid;gap:10px;border-top:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02)}
+    .total{display:flex;align-items:center;justify-content:space-between;font-weight:900}
+    .checkout{padding:14px;border-radius:14px;background:linear-gradient(135deg,var(--ok),#9ff0d1);color:#0b0f1a;border:0;font-weight:900;box-shadow:0 18px 40px rgba(83,226,174,.35)}
+
+    /* ===== Size modal ===== */
+    .modal{position:fixed;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.5);backdrop-filter:blur(3px);z-index:70;opacity:0;pointer-events:none;transition:opacity .2s ease}
+    .modal.active{opacity:1;pointer-events:auto}
+    .modal-card{width:min(520px,92vw);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:18px;box-shadow:var(--shadow);padding:16px}
+    .modal-title{font-family:Poppins,sans-serif;font-weight:900;margin:0 0 10px}
+    .sizes{display:flex;flex-wrap:wrap;gap:8px}
+    .size-btn{padding:10px 12px;border-radius:12px;border:1px solid var(--b1);background:var(--glass);color:var(--text);font-weight:800}
+    .size-btn.active{outline:2px solid var(--accent);background:rgba(255,226,138,.18);color:#0b0f1a}
+    .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+
+    /* ===== Helpers ===== */
+    .hide{display:none!important}
+    .muted{color:var(--muted)}
+
+    @supports(padding:max(0px)){
+      .drawer-inner,.header{padding-bottom:max(12px,env(safe-area-inset-bottom))}
+      .tabbar{bottom:max(12px,env(safe-area-inset-bottom))}
+    }
+/* 
+   body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #f9fafb;
+    } */
+
+    header {
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,.05);
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+
+    /* Desktop nav */
+    nav.desktop-nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0; padding: 0;
+      gap: 20px;
+    }
+    nav.desktop-nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      transition: color .2s;
+    }
+    nav.desktop-nav ul li a:hover {
+      color: #2563eb;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,.4);
+      display: none;
+      z-index: 1000;
+    }
+    .overlay.show { display: block; }
+
+    /* Responsive */
+    @media(max-width: 768px){
+      nav.desktop-nav { display: none; } /* Desktop navni yashirish */
+      .menu-btn { display: block; } /* Hamburger buttonni chiqarish */
+    }
+    @media(min-width: 769px){
+      .offcanvas, .menu-btn { display: none; }
+    }
+
+
+
+    /* Modal background */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s ease;
+  z-index: 1000;
+}
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Modal card */
+.modal-card {
+  width: 100%;
+  max-width: 420px;
+  background: 
+    url('https://avatars.mds.yandex.net/i?id=73119c16aa24739cb0a5a82368aefb51_l-5232689-images-thumbs&n=13') center/cover no-repeat, /* fon rasmi */
+    #dc7e7e; /* agar rasm shaffof bo‘lsa, rang saqlanadi */
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  animation: scaleIn .3s ease;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(.85); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* Title */
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  text-align: center;
+  color: #222;
+}
+
+/* Inputs */
+.modal-card .pill {
+  width: 100%;
+  border: 2px solid #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  transition: border .2s, box-shadow .2s;
+}
+.modal-card .pill:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgb(255, 255, 255);
+  outline: none;
+}
+
+/* Buttons */
+.modal-card .btn,
+.modal-card .add {
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+.modal-card .btn {
+  background: #f3f4f6;
+  color: #374151;
+  margin-right: 8px;
+}
+.modal-card .btn:hover {
+  background: #e5e7eb;
+}
+.modal-card .add {
+  background: #2563eb;
+  color: white;
+}
+.modal-card .add:hover {
+  background: #1e40af;
+}
+
+
+    #menuItems {
+    opacity:0;
+    transition:opacity 0.3s ease;
+  }
+
+  #menuItems button:hover {
+    background:linear-gradient(90deg,#6a00f4,#ff00ff);
+    transform:scale(1.05);
+  }
+
+  @keyframes pulse {
+  0% {
+    box-shadow: 0 0 10px #0045f4, 0 0 20px #6a00f4, 0 0 30px #6a00f4;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 20px #3300ff, 0 0 30px #a200ff, 0 0 40px #131a9a;
+    transform: scale(1.1);
+  }
+  100% {
+    box-shadow: 0 0 10px #6a00f4, 0 0 20px #6a00f4, 0 0 30px #6a00f4;
+    transform: scale(1);
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- Ambient blobs -->
+  <div class="blob a"></div><div class="blob b"></div><div class="blob c"></div>
+
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="row" style="justify-content:space-between;">
+      <div class="brand">BZA <span style="color:var(--primary)">Fashion</span> <span class="spark">✨</span></div>
+      <button class="cart-btn" id="openCart" aria-label="Savatcha">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.45A1.99 1.99 0 0 0 8.99 19H19v-2H9.42a.25.25 0 0 1-.22-.13l.03-.06L10.1 14h6.45a2 2 0 0 0 1.79-1.11l3.58-7.16A1 1 0 0 0 21 4H7zM7 20a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 .001 4.001A2 2 0 0 0 17 20z"/></svg>
+        <span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
+
+
+  <!-- OFFCANVAS NAV -->
+
+    <div class="row" style="margin-top:10px;">
+      <div class="pill" style="flex:1;">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4a6 6 0 1 1 0 12A6 6 0 0 1 10 4m0-2a8 8 0 1 0 0 16 8 8 0 0 0 0-16m12.71 19.29-5.4-5.4a10 10 0 1 1 1.42-1.42l5.4 5.4a1 1 0 0 1-1.42 1.42Z"/></svg>
+        <input id="search" type="search" placeholder="Qidirish: futbolka, hoodie, krossovka..." />
+      </div>
+      <button class="btn" id="filterBtn" aria-label="Filtr">Filtr</button>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-card" id="heroCard">
+      <div class="shine"></div>
+      <div class="hero-inner" id="heroInner">
+        <h1>Yozgi <span style="color:var(--accent)">TREND</span> kolleksiya</h1>
+        <p>Chegirmalar –50% gacha. Eng mashhur modellar shu yerda.</p>
+        <a class="hero-cta" href="#grid" id="shopNow">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M13 5l7 7-7 7M5 12h14"/></svg>
+          Xaridni boshlash
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Stats under hero -->
+  <div class="stats">
+    <div class="stat"><div class="k" id="s1">0</div><div class="t">Yangi kelganlar</div></div>
+    <div class="stat"><div class="k" id="s2">0</div><div class="t">Sotildi (oyiga)</div></div>
+    <div class="stat"><div class="k" id="s3">0</div><div class="t">Mamnun mijozlar</div></div>
+  </div>
+
+  <!-- ===== Trend ===== -->
+  <div class="section-title">Trend 🔥</div>
+  <div class="trend-strip"><div class="trend-track" id="trendTrack"></div></div>
+
+  <!-- ===== Filters ===== -->
+  <div class="filters" id="filters"></div>
+
+  <!-- ===== Product Grid ===== -->
+  <main class="grid" id="grid" aria-live="polite"></main>
+
+  <!-- ===== Floating Cart Button ===== -->
+  <div class="tabbar">
+    <button class="fab" id="openCart2">
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.45A1.99 1.99 0 0 0 8.99 19H19v-2H9.42a.25.25 0 0 1-.22-.13l.03-.06L10.1 14h6.45a2 2 0 0 0 1.79-1.11l3.58-7.16A1 1 0 0 0 21 4H7z"/></svg>
+      Savatcha <span id="cartCount2" style="background:#0b0f1a;color:#fff;font-weight:900;border-radius:10px;padding:4px 8px;">0</span>
+    </button>
+  </div>
+
+  <!-- ===== Size Modal ===== -->
+  <div class="modal" id="sizeModal" role="dialog" aria-modal="true" aria-labelledby="sizeTitle">
+    <div class="modal-card">
+      <h3 class="modal-title" id="sizeTitle">Razmerni tanlang</h3>
+      <div class="sizes" id="sizes"></div>
+      <div class="modal-actions">
+        <button class="btn" id="sizeCancel">Bekor qilish</button>
+        <button class="add" id="sizeConfirm">Savatga qo'shish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Cart Drawer ===== -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-inner">
+      <div class="drawer-handle"></div>
+      <div class="drawer-header">
+        <div class="drawer-title">Sizning savatchangiz</div>
+        <button class="btn" id="closeCart">Yopish</button>
+      </div>
+      <div class="drawer-body">
+        <div id="cartEmpty" class="empty">Savatcha hozircha bo'sh 🤏</div>
+        <div id="cartItems"></div>
+      </div>
+      <div class="drawer-footer">
+        <div class="total"><span>Jami</span><span id="cartTotal">$0</span></div>
+        <button class="checkout" id="checkoutBtn">Buyurtma berish</button>
+      </div>
+    </div>
+  </aside>
+
+<!-- ===== Order Modal ===== -->
+<div class="modal" id="orderModal" role="dialog">
+  <div class="modal-card">
+    <h3 class="modal-title">Buyurtma ma'lumotlari</h3>
+    <input class="pill" id="cName" placeholder="Ismingiz">
+    <input class="pill"  id="cPhone" placeholder="Telefon raqamingiz (+998...)">
+    <textarea class="pill" id="cAddress" placeholder="Turar joy manzili"></textarea>
+    <div style="margin-top:10px; text-align:right">
+      <button class="btn" id="orderCancel">Bekor qilish</button>
+      <button class="add" id="orderSend">Yuborish</button>
+    </div>
+  </div>
+</div>
+<div id="cornerMenu">
+
+  <!-- Small Floating Button -->
+<button id="cornerBtn" style="
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      border:2px solid #6a00f4;
+      background:#00bff4;
+      color:#fff;
+      font-size:24px;
+      cursor:pointer;
+      box-shadow:0 0 10px #6a00f4, 0 0 20px #6a00f4, 0 0 30px #6a00f4;
+      z-index:1001;
+      animation: pulse 1.5s infinite;
+      transition:0.3s;
+  ">☰</button>
+
+  <!-- Overlay Background -->
+  <div id="menuOverlay" style="
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.5);
+      z-index:1000;
+  "></div>
+
+  <!-- Menu Panel -->
+<div id="menuPanel" style="
+    display:none;
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    max-height:300px;
+    background: url('https://i.pinimg.com/originals/ec/7c/ba/ec7cba8472662512fa3eed16f59f7994.png') no-repeat center center;
+    background-size: cover;
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+    box-shadow:0 -5px 20px rgba(0,0,0,0.3);
+    z-index:1002;
+    transform:translateY(100%);
+    transition:transform 0.4s ease;
+    padding:20px;
+    overflow-y:auto;
+">
+
+    <!-- Close Handle -->
+    <div style="
+        width:50px;
+        height:5px;
+        background:#ccc;
+        border-radius:5px;
+        margin:0 auto 15px;
+        cursor:pointer;
+    " id="closeMenu"></div>
+
+    <!-- Menu Links -->
+    <div class="grid grid-cols-3 gap-6">
+      <a href="{% url 'home' %}" style="
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+          justify-content:center;
+          padding:10px;
+          border-radius:15px;
+          background:#f0f0ff;
+          color:#6a00f4;
+          font-weight:600;
+          text-decoration:none;
+          box-shadow:0 4px 10px rgba(0,0,0,0.1);
+          transition:transform 0.3s, background 0.3s;
+      " onmouseover="this.style.transform='scale(1.1)'; this.style.background='#e0d6ff';" onmouseout="this.style.transform='scale(1)'; this.style.background='#f0f0ff';">
+        <span style="font-size:24px;">🏠</span>
+        <span style="font-size:12px; margin-top:5px;">Home</span>
+      </a>
+
+<a href="{% url 'shop' %}" style="
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+    border-radius:15px;
+    background:#f0f0ff;
+    color:#6a00f4;
+    font-weight:600;
+    text-decoration:none;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    border: 2px solid #f00; /* boshlang‘ich qizil border */
+    transition: transform 0.3s, background 0.3s, border-color 0.5s;
+" 
+onmouseover="this.style.transform='scale(1.1)'; this.style.background='#e0d6ff'; this.style.borderColor='#ff0000';" 
+onmouseout="this.style.transform='scale(1)'; this.style.background='#f0f0ff'; this.style.borderColor='#f00';">
+    <span style="font-size:24px;">🛒</span>
+    <span style="font-size:12px; margin-top:5px;">Shop</span>
+</a>
+<a href="{% url 'user:profile' %}" style="
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+    border-radius:15px;
+    background:#f0f0ff;
+    color:#6a00f4;
+    font-weight:600;
+    text-decoration:none;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    border: 2px solid #f00; /* boshlang‘ich qizil border */
+    transition: transform 0.3s, background 0.3s, border-color 0.5s;
+" 
+onmouseover="this.style.transform='scale(1.1)'; this.style.background='#e0d6ff'; this.style.borderColor='#ff0000';" 
+onmouseout="this.style.transform='scale(1)'; this.style.background='#f0f0ff'; this.style.borderColor='#f00';">
+    <span style="font-size:24px;">👤</span>
+    <span style="font-size:12px; margin-top:5px;">Profile</span>
+</a>
+
+<a href="{% url 'contact' %}" style="
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+    border-radius:15px;
+    background:#f0f0ff;
+    color:#6a00f4;
+    font-weight:600;
+    text-decoration:none;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    border: 2px solid rgb(255, 255, 255); /* boshlang‘ich qizil border */
+    transition: transform 0.3s, background 0.3s, border-color 0.5s;
+" 
+onmouseover="this.style.transform='scale(1.1)'; this.style.background='#e0d6ff'; this.style.borderColor='#ff0000';" 
+onmouseout="this.style.transform='scale(1)'; this.style.background='#f0f0ff'; this.style.borderColor='#f00';">
+    <span style="font-size:24px;">📞</span>
+    <span style="font-size:12px; margin-top:5px;">Contact</span>
+</a>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =======================
+   Config & helpers
+=======================*/
+const API_BASE = "http://127.0.0.1:8000";
+const API_PRODUCTS = API_BASE + "/api/products/";
+const API_ORDER    = API_BASE + "/api/order/";
+
+let PRODUCTS = [];
+let CATEGORIES = [];
+
+const $ = sel => document.querySelector(sel);
+const $$ = sel => document.querySelectorAll(sel);
+
+function money(v) {
+  return Number(v || 0).toLocaleString('uz-UZ') + " so'm";
+}
+
+function getCookie(name){
+  const m = document.cookie.match('(^|;)\\s*'+name+'\\s*=\\s*([^;]+)');
+  return m ? m.pop() : "";
+}
+function jsonFetch(url, opts={}){
+  const headers = Object.assign({'Accept':'application/json'}, opts.headers||{});
+  // CSRF (agar bir domen bo‘lsa va cookie bor bo‘lsa)
+  const csrftoken = getCookie('csrftoken');
+  if (csrftoken && (!opts.method || opts.method.toUpperCase()!=='GET')){
+    headers['X-CSRFToken'] = csrftoken;
+  }
+  return fetch(url, Object.assign(opts, {headers}))
+         .then(async r=>{
+            const data = await r.json().catch(_=> ({}));
+            if(!r.ok) throw data || {detail:"Request failed"};
+            return data;
+          });
+}
+
+/* =======================
+   DOM refs
+=======================*/
+const grid        = $('#grid');
+const filters     = $('#filters');
+const search      = $('#search');
+const cartCount   = $('#cartCount');
+const cartCount2  = $('#cartCount2');
+const drawer      = $('#drawer');
+const backdrop    = $('#drawerBackdrop');
+const openCart    = $('#openCart');
+const openCart2   = $('#openCart2');
+const closeCart   = $('#closeCart');
+const cartItemsEl = $('#cartItems');
+const cartEmpty   = $('#cartEmpty');
+const cartTotal   = $('#cartTotal');
+const trendTrack  = $('#trendTrack');
+
+/* SIZE modal */
+const sizeModal   = $('#sizeModal');
+const sizeCancel  = $('#sizeCancel');
+const sizeConfirm = $('#sizeConfirm');
+const sizesWrap   = $('#sizes');
+let sizeSelected=null, sizeForProduct=null;
+
+/* ORDER modal */
+const orderModal  = $("#orderModal");
+const orderSend   = $("#orderSend");
+const orderCancel = $("#orderCancel");
+
+/* =======================
+   State
+=======================*/
+const state = {
+  q: '',
+  cat: 'Hammasi',
+  cart: loadCart(),
+  favs: new Set(JSON.parse(localStorage.getItem('favs') || '[]')),
+  trendAnimRAF: null
+};
+
+/* =======================
+   Init
+=======================*/
+init();
+async function init(){
+  showGridLoading(true);
+  try{
+    await fetchProducts();
+    buildCategories();
+    renderFilters();
+    renderTrend();
+    renderProducts();
+    renderCart();
+    animateStats();
+  }catch(e){
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1">Xatolik: mahsulotlarni yuklab bo‘lmadi</div>`;
+    console.error(e);
+  }finally{
+    showGridLoading(false);
+  }
+
+  // Drawer controls
+  [openCart, openCart2].forEach(b=> b && b.addEventListener('click', openDrawer));
+  closeCart && closeCart.addEventListener('click', closeDrawer);
+  backdrop  && backdrop.addEventListener('click', closeDrawer);
+
+  // Search debounce
+  let t;
+  if (search){
+    search.addEventListener('input', e=>{
+      state.q = e.target.value.toLowerCase();
+      clearTimeout(t);
+      t = setTimeout(renderProducts, 140);
+    });
+  }
+}
+
+/* =======================
+   API: products
+=======================*/
+async function fetchProducts(){
+  const data = await jsonFetch(API_PRODUCTS);
+  PRODUCTS = data.map(p => ({
+    id:   p.id,
+    name: p.name,
+    img:  p.image, // DRF serializer da to‘liq URL bo‘lsa — super
+    price: parseFloat(p.price),
+    cat:  p.category,
+    stocks: p.stocks || [],
+    sizes: (p.stocks||[]).filter(s=>s.quantity>0).map(s=>s.size),
+    tag:  ((p.stocks||[]).every(s=>s.quantity==0) ? "Qolmadi" : "Yangi"),
+    trend: true
+  }));
+}
+
+/* =======================
+   Categories & Filters
+=======================*/
+function buildCategories(){
+  CATEGORIES = ['Hammasi', ...new Set(PRODUCTS.map(p=>p.cat).filter(Boolean))];
+}
+
+function renderFilters(){
+  if(!filters) return;
+  filters.innerHTML = "";
+  CATEGORIES.forEach(cat=>{
+    const b = document.createElement('button');
+    b.className = 'btn' + (state.cat===cat ? ' active':'');
+    b.textContent = cat;
+    b.addEventListener('click', ()=>{
+      state.cat = cat;
+      $$('.filters .btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      renderProducts();
+    });
+    filters.appendChild(b);
+  });
+}
+
+/* =======================
+   Trend stripe 
+=======================*/
+function renderTrend(){
+  if(!trendTrack) return; // HTML’da bo‘lmasa — o‘tkazamiz
+  cancelAnimationFrame(state.trendAnimRAF);
+  trendTrack.innerHTML = "";
+  let arr = [...PRODUCTS.filter(p=>p.trend)];
+  if(arr.length===0) return;
+
+  // 2x qilib loop silliq bo'ladi
+  arr = [...arr, ...arr];
+  arr.forEach(p=> trendTrack.appendChild(trendChip(p)));
+
+  // animate
+  let offset = 0, speed = 0.5;
+  const loop = ()=>{
+    offset -= speed;
+    trendTrack.style.transform = `translateX(${offset}px)`;
+    if(Math.abs(offset) > trendTrack.scrollWidth/2) offset = 0;
+    state.trendAnimRAF = requestAnimationFrame(loop);
+  };
+  loop();
+}
+function trendChip(p){
+  const c = document.createElement('div');
+  c.className = 'chip';
+  c.innerHTML = `<img src="${p.img}" alt="${p.name}"><span>${p.name}</span>`;
+  c.onclick = ()=>{
+    state.q = p.name.split(' ')[0].toLowerCase();
+    if (search) search.value = state.q;
+    renderProducts();
+  };
+  // Fallback rasm
+  c.querySelector('img').addEventListener('error', e=>{
+    e.currentTarget.src = 'https://via.placeholder.com/80x80?text=IMG';
+  });
+  return c;
+}
+
+/* =======================
+   Products grid
+=======================*/
+function renderProducts(){
+  if(!grid) return;
+  const q = state.q, cat = state.cat;
+  const arr = PRODUCTS.filter(p =>
+    (cat==='Hammasi' || p.cat===cat) &&
+    (!q || p.name.toLowerCase().includes(q) || (p.cat||'').toLowerCase().includes(q))
+  );
+
+  grid.innerHTML = "";
+  if(arr.length===0){
+    grid.innerHTML = `<div class='empty' style='grid-column:1/-1'>Hech narsa topilmadi 😔</div>`;
+    return;
+  }
+  arr.forEach(p => grid.appendChild(createCard(p)));
+}
+function createCard(p){
+  const el = document.createElement('article');
+  el.className = 'card';
+  const disabled = (p.sizes.length===0);
+
+  el.innerHTML = `
+    <div class="card-media">
+      <img src="${p.img}" alt="${p.name}">
+      <div class="tag">${p.tag}</div>
+      <button class="fav">${state.favs.has(p.id)?'❤':'♡'}</button>
+    </div>
+    <div class="card-body">
+      <div class="title">${p.name}</div>
+      <div class="price-row">
+        <div class="price">${money(p.price)}</div>
+        <button class="add" ${disabled?'disabled':''}>${disabled?'Qolmadi':'Qo\'shish'}</button>
+      </div>
+    </div>
+  `;
+
+  // img fallback
+  el.querySelector('img').addEventListener('error', e=>{
+    e.currentTarget.src = 'https://via.placeholder.com/400x400?text=IMG';
+  });
+
+  el.querySelector('.fav').onclick = e=>{
+    toggleFav(p.id);
+    e.currentTarget.textContent = state.favs.has(p.id)?'❤':'♡';
+  };
+  if(!disabled){
+    el.querySelector('.add').onclick = ()=> openSizeModal(p);
+  }
+
+  return el;
+}
+
+/* =======================
+   Size modal
+=======================*/
+function openSizeModal(pr){
+  sizeForProduct = pr;
+  sizeSelected = null;
+  sizesWrap.innerHTML = "";
+
+  if(pr.sizes.length===0){
+    sizesWrap.innerHTML = `<div class='muted'>Bu mahsulot stokda yo'q</div>`;
+  }
+
+  pr.sizes.forEach(sz=>{
+    const b = document.createElement('button');
+    b.className = 'size-btn';
+    b.textContent = sz;
+    b.onclick = ()=>{
+      $$('.size-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      sizeSelected = sz;
+    };
+    sizesWrap.appendChild(b);
+  });
+
+  sizeModal.classList.add('active');
+}
+sizeCancel && (sizeCancel.onclick = _=> sizeModal.classList.remove('active'));
+sizeConfirm && (sizeConfirm.onclick = _=>{
+  if(!sizeSelected) return alert("Razmer tanlang");
+  addToCart(sizeForProduct.id, sizeSelected);
+  sizeModal.classList.remove('active');
+});
+
+/* =======================
+   Cart
+=======================*/
+function loadCart(){ try{ return JSON.parse(localStorage.getItem('cart')||'{}') }catch{ return {} } }
+function saveCart(){ localStorage.setItem('cart', JSON.stringify(state.cart)) }
+
+function addToCart(id, sz){
+  const key = `${id}|${sz}`;
+  let item = state.cart[key];
+  if(!item) item = state.cart[key] = {id, qty:0, size:sz};
+  item.qty++;
+  pulseCount();
+  saveCart();
+  renderCart();
+}
+function removeFromCart(k){ delete state.cart[k]; saveCart(); renderCart(); }
+function changeQty(k, d){
+  if(!state.cart[k]) return;
+  state.cart[k].qty = Math.max(1, state.cart[k].qty + d);
+  saveCart();
+  renderCart();
+}
+
+function renderCart(){
+  const items = Object.entries(state.cart).map(([k,v]) => ({...v, key:k, ...PRODUCTS.find(p=>p.id===v.id)}));
+  const count = items.reduce((a,b)=>a+b.qty,0);
+  const total = items.reduce((a,b)=>a+(b.price||0)*b.qty,0);
+
+  if(cartCount)  cartCount.textContent  = count;
+  if(cartCount2) cartCount2.textContent = count;
+
+  if(!cartItemsEl || !cartEmpty || !cartTotal) return;
+
+  cartItemsEl.innerHTML = "";
+  cartEmpty.classList.toggle('hide', items.length>0);
+
+  items.forEach(it=>{
+    const r = document.createElement('div');
+    r.className = 'item';
+    r.innerHTML = `
+      <img src='${it.img}'>
+      <div>
+        <div style='font-weight:800'>${it.name}</div>
+        <div class='muted'>${money(it.price)} · ${it.size}</div>
+        <div class='qty'>
+          <button aria-label="minus">−</button>
+          <span>${it.qty}</span>
+          <button aria-label="plus">+</button>
+        </div>
+      </div>
+      <div style="display:grid;gap:6px;justify-items:end;">
+        <div style="font-weight:900">${money((it.price||0)*it.qty)}</div>
+        <button class="btn">O'chirish</button>
+      </div>
+    `;
+    // img fallback
+    r.querySelector('img').addEventListener('error', e=>{
+      e.currentTarget.src = 'https://via.placeholder.com/60x60?text=IMG';
+    });
+
+    const [m,p] = r.querySelectorAll('.qty button');
+    m.onclick = ()=> changeQty(it.key, -1);
+    p.onclick = ()=> changeQty(it.key, +1);
+    r.querySelector('.btn').onclick = ()=> removeFromCart(it.key);
+    cartItemsEl.appendChild(r);
+  });
+
+  cartTotal.textContent = money(total);
+}
+function pulseCount(){
+  [cartCount, cartCount2].forEach(el=>{
+    if(!el) return;
+    el.animate([{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}], {duration:300});
+  });
+}
+function toggleFav(id){
+  state.favs.has(id) ? state.favs.delete(id) : state.favs.add(id);
+  localStorage.setItem('favs', JSON.stringify([...state.favs]));
+}
+
+/* =======================
+   Drawer
+=======================*/
+function openDrawer(){
+  drawer && (drawer.style.transform='translateY(0)');
+  if(backdrop){
+    backdrop.style.opacity='1';
+    backdrop.style.pointerEvents='auto';
+  }
+}
+function closeDrawer(){
+  drawer && (drawer.style.transform='translateY(110%)');
+  if(backdrop){
+    backdrop.style.opacity='0';
+    backdrop.style.pointerEvents='none';
+  }
+}
+
+/* =======================
+   Order modal
+=======================*/
+const checkoutBtn = $("#checkoutBtn");
+checkoutBtn && (checkoutBtn.onclick = ()=>{
+  if(!Object.keys(state.cart).length) return alert("Savatcha bo'sh.");
+  orderModal.classList.add("active");
+});
+
+orderCancel && (orderCancel.onclick = _=> orderModal.classList.remove("active"));
+
+orderSend && (orderSend.onclick = async _=>{
+  const name  = $("#cName").value.trim();
+  const phone = $("#cPhone").value.trim();
+  const addr  = $("#cAddress").value.trim();
+  if(!name || !phone || !addr) return alert("Barcha maydonlarni kiriting!");
+
+  try{
+    const res = await jsonFetch(API_ORDER, {
+      method: "POST",
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        customer_name: name,
+        customer_phone: phone,
+        customer_address: addr,
+        data: state.cart
+      })
+    });
+
+    if(res.error){
+      alert(res.error);
+      return;
+    }
+    alert(res.message || "Buyurtma qabul qilindi!");
+
+    // savatchani tozalash
+    state.cart = {};
+    saveCart();
+    renderCart();
+    closeDrawer();
+    orderModal.classList.remove("active");
+
+    // 🔁 Mahsulotlarni qayta yuklash — stok kamayishini ko‘rsatish
+    showGridLoading(true);
+    await fetchProducts();
+    buildCategories();
+    renderFilters();     // Kategoriyalar ham o‘zgarishi mumkin
+    renderTrend();       // trend trekni qayta qurish
+    renderProducts();    // gridni yangilash
+    showGridLoading(false);
+
+  }catch(e){
+    console.error(e);
+    alert(e.detail || "Xatolik yuz berdi!");
+  }
+});
+
+/* =======================
+   Stats animation (demo)
+=======================*/
+function animateStats(){
+  const arr = [
+    {el: $('#s1'), to: PRODUCTS.length},
+    {el: $('#s2'), to: 420},
+    {el: $('#s3'), to: 98}
+  ];
+  arr.forEach(({el,to})=>{
+    if(!el) return;
+    let v=0, step = Math.max(1, Math.round(to/40));
+    const t = setInterval(()=>{
+      v += step;
+      if(v>=to){ v = to; clearInterval(t); }
+      el.textContent = v + "+";
+    },30);
+  });
+}
+
+/* =======================
+   UI helpers
+=======================*/
+function showGridLoading(show){
+  if(!grid) return;
+  if(show){
+    grid.dataset.prev = grid.innerHTML;
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1">Yuklanmoqda...</div>`;
+  }else{
+    if(grid.dataset.prev){ grid.innerHTML = grid.dataset.prev; delete grid.dataset.prev; }
+  }
+}
+const cornerBtn = document.getElementById("cornerBtn");
+const menuOverlay = document.getElementById("menuOverlay");
+const menuPanel = document.getElementById("menuPanel");
+const closeMenu = document.getElementById("closeMenu");
+
+cornerBtn.addEventListener("click", () => {
+  menuOverlay.style.display = "block";
+  menuPanel.style.display = "block";
+  setTimeout(() => {
+    menuPanel.style.transform = "translateY(0)";
+  }, 50);
+});
+
+menuOverlay.addEventListener("click", closePanel);
+closeMenu.addEventListener("click", closePanel);
+
+function closePanel(){
+  menuPanel.style.transform = "translateY(100%)";
+  setTimeout(() => {
+    menuPanel.style.display = "none";
+    menuOverlay.style.display = "none";
+  }, 400);
+}
+</script>

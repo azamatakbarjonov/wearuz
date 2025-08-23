@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foydalanuvchi Profil</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: url("https://avatars.mds.yandex.net/i?id=5658726d9b781e9cd35f24d7a3b4e664_l-5233360-images-thumbs&n=13") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fadeIn {
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-slideUp {
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes neon-glow {
+      0% {
+        box-shadow: 0 0 5px #3b82f6, 0 0 8px #3b82f6, 0 0 17px #3b82f6;
+        border-color: #3b82f6;
+      }
+
+      50% {
+        box-shadow: 0 0 10px #60a5fa, 0 0 30px #60a5fa, 0 0 30px #60a5fa;
+        border-color: #60a5fa;
+      }
+
+      100% {
+        box-shadow: 0 0 5px #3b82f6, 0 0 7px #3b82f6, 0 0 15px #3b82f6;
+        border-color: #3b82f6;
+      }
+    }
+
+    .neon-border {
+      border: 2px solid #3b82f6;
+      animation: neon-glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 10px rgba(10, 14, 222, 0.6);
+      }
+
+      50% {
+        box-shadow: 0 0 25px rgb(65, 66, 163);
+      }
+
+      100% {
+        box-shadow: 0 0 10px rgba(14, 16, 127, 0.6);
+      }
+    }
+
+    .animate-glow {
+      animation: glow 10s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+      }
+
+      /* boshlanish */
+      50% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 1);
+      }
+
+      /* eng yorqin */
+      100% {
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+      }
+
+      /* qaytish */
+    }
+
+    .animate-glow {
+      animation: glow 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+  <div class="relative min-h-screen">
+
+    <!-- Content -->
+    <div class="relative z-10 px-4 sm:px-6 py-10">
+
+      <!-- Profile Card -->
+      <div class="bg-white text-gray-900 rounded-3xl shadow-2xl p-6 text-center animate-fadeIn max-w-md mx-auto">
+        <!-- Avatar -->
+        <div class="relative w-28 h-28 mx-auto rounded-full shadow-lg">
+          <!-- Yonib turadigan ko‘k border -->
+          <div class="absolute inset-0 rounded-full border-[3px] border-blue-500 animate-glow"></div>
+
+          <!-- Avatar -->
+          <div class="w-full h-full rounded-full overflow-hidden">
+            {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="Avatar" class="w-full h-full object-cover">
+            {% else %}
+            <img src="https://via.placeholder.com/150" alt="Avatar" class="w-full h-full object-cover">
+            {% endif %}
+          </div>
+        </div>
+
+        <h2 class="mt-4 text-xl sm:text-2xl font-bold">{{ user.username }}</h2>
+        <p class="text-gray-500 text-sm mt-1 break-words">📧 {{ user.email }}</p>
+        <p class="text-gray-500 text-sm break-words">📞 {{ user.phone }}</p>
+        <p class="text-gray-500 text-sm break-words">🏠 {{ user.address }}</p>
+
+        <div class="mt-6 flex flex-col gap-3">
+          <a href="{% url 'user:edit_profile' %}"
+            class="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold shadow-md hover:bg-indigo-700 transition transform hover:scale-105 text-sm">
+            ⚙️ Profilni Tahrirlash
+          </a>
+          <a href="{% url 'user:logout' %}"
+            class="w-full py-3 rounded-xl bg-red-600 text-white font-semibold shadow-md hover:bg-red-700 transition transform hover:scale-105 text-sm">
+            🚪 Chiqish
+          </a>
+        </div>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-center text-white mt-10 mb-6 animate-slideUp">
+        📦 Mening Buyurtmalarim
+      </h2>
+
+      {% if orders %}
+      <div class="space-y-6 max-w-2xl mx-auto">
+        {% for order in orders %}
+        <div
+          class="neon-border bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl p-6 animate-fadeIn hover:scale-[1.02] transition duration-300">
+
+          <!-- Buyurtma sarlavhasi -->
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg sm:text-xl font-semibold text-indigo-300">
+              Buyurtma №{{ order.id }}
+            </h3>
+            <span class="text-sm text-gray-300">
+              {{ order.created_at|date:"d.m.Y H:i" }}
+            </span>
+          </div>
+
+          <!-- Buyurtma itemlari -->
+          <ul class="space-y-4">
+            {% for item in order.data_items %}
+            <li class="neon-border flex items-center gap-4 rounded-xl p-3 bg-white/5 hover:bg-white/10 transition">
+              <div class="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden shadow-md">
+                <img src="{{ item.image }}" alt="{{ item.name }}" class="w-full h-full object-cover">
+              </div>
+              <div class="flex-1">
+                <p class="font-medium text-white">{{ item.name }}</p>
+                <p class="text-gray-300 text-sm">{{ item.qty }} × {{ item.price }} so'm</p>
+                {% if item.size %}
+                <p class="text-indigo-300 text-sm">Razmer: {{ item.size }}</p>
+                {% endif %}
+              </div>
+              <span class="font-semibold text-indigo-400">{{ item.total }} so'm</span>
+            </li>
+            {% endfor %}
+          </ul>
+
+          <!-- Buyurtma jami -->
+          <div class="mt-6 text-right">
+            <p class="text-lg font-bold text-white">
+              Jami: <span class="text-indigo-400">{{ order.total_price }} so'm</span>
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="text-center text-gray-400 text-lg mt-6 animate-fadeIn">
+        Sizda hali buyurtmalar yo‘q.
+      </p>
+      {% endif %}
+<br>
+<!-- Footer Navigation -->
+<footer
+  class="fixed bottom-0 left-0 w-full bg-white/10 backdrop-blur-md border-t border-indigo-500/40 shadow-lg">
+  <div class="max-w-md mx-auto flex justify-around items-center py-3">
+    <!-- Asosiy sahifa -->
+    <a href="{% url 'home' %}"
+      class="flex flex-col items-center text-indigo-300 hover:text-indigo-400 transition">
+      <span class="text-xl">🏠</span>
+      <span class="text-sm font-medium">Asosiy</span>
+    </a>
+
+    <!-- Shop sahifasi -->
+    <a href="{% url 'shop' %}"
+      class="flex flex-col items-center text-indigo-300 hover:text-indigo-400 transition">
+      <span class="text-xl">🛒</span>
+      <span class="text-sm font-medium">Shop</span>
+    </a>
+  </div>
+</footer>
+

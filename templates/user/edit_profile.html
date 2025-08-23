@@ -1,0 +1,87 @@
+<!-- templates/edit_profile.html -->
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profilni Tahrirlash</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Input focus animatsiyasi */
+    .input-focus {
+      transition: all 0.3s ease;
+    }
+    .input-focus:focus {
+      transform: scale(1.02);
+      box-shadow: 0 0 10px rgba(59,130,246,0.5);
+    }
+    /* Avatar hover animatsiyasi */
+    .avatar-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .avatar-hover:hover {
+      transform: scale(1.1) rotate(3deg);
+      box-shadow: 0 0 15px rgba(59,130,246,0.6);
+    }
+    /* Button hover animatsiyasi */
+    .button-hover {
+      transition: all 0.3s ease;
+    }
+    .button-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(59,130,246,0.4);
+    }
+  </style>
+</head>
+<body class="bg-[url('https://i.pinimg.com/originals/d7/e5/ab/d7e5ab7624c8e54b64aa1a1026d3534c.jpg')] bg-cover bg-center min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl w-full max-w-sm p-6">
+    <h2 class="text-2xl font-bold text-center mb-6 drop-shadow-lg">⚙️ Profilni Tahrirlash</h2>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-4">
+      {% csrf_token %}
+
+      <!-- Profil rasm -->
+      <div class="flex flex-col items-center">
+        {% if user.profile.avatar.url %}
+          <img src="{{ user.profile.avatar.url }}" alt="Profil rasmi" class="w-24 h-24 rounded-full mb-3 object-cover border-4 border-blue-400 avatar-hover">
+        {% else %}
+          <div class="w-24 h-24 rounded-full mb-3 bg-gray-200 flex items-center justify-center text-gray-500 font-semibold avatar-hover">
+            Rasm
+          </div>
+        {% endif %}
+        <label for="id_avatar" class="cursor-pointer text-blue-500 hover:underline text-sm">Rasmni o‘zgartirish</label>
+        <input type="file" name="avatar" id="id_avatar" class="hidden">
+      </div>
+
+      <!-- Username -->
+      <input type="text" name="username" value="{{ user.username }}" placeholder="Username" required
+             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 input-focus">
+
+      <!-- Email -->
+      <input type="email" name="email" value="{{ user.email }}" placeholder="Email" required
+             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 input-focus">
+
+      <!-- Phone -->
+      <input type="tel" name="phone" value="{{ user.profile.phone }}" placeholder="Phone"
+             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 input-focus">
+
+      <!-- Address -->
+      <input type="text" name="address" value="{{ user.profile.address }}" placeholder="Address"
+             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 input-focus">
+
+      <!-- Saqlash tugmasi -->
+      <button type="submit" class="w-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-white font-bold py-3 rounded-xl button-hover">
+        Saqlash
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const avatarInput = document.getElementById('id_avatar');
+    const avatarLabel = document.querySelector('label[for="id_avatar"]');
+    avatarLabel.addEventListener('click', () => avatarInput.click());
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📞 Kontakt - BZA Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Basic Reset ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #1e003f, #4b0055);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            position: relative;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            z-index: 1;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+            animation: neonGlow 2s infinite alternate;
+        }
+
+        .hero p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            z-index: 1;
+        }
+
+        @keyframes neonGlow {
+            0% {
+                text-shadow: 0 0 5px #0ff, 0 0 15px #0ff;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+            }
+        }
+
+        /* ===== Floating Stickers ===== */
+        .sticker {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(15deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        .sticker:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .sticker:nth-child(2) {
+            top: 20%;
+            left: 80%;
+            animation-delay: 1s;
+        }
+
+        .sticker:nth-child(3) {
+            top: 40%;
+            left: 30%;
+            animation-delay: 2s;
+        }
+
+        .sticker:nth-child(4) {
+            top: 55%;
+            left: 70%;
+            animation-delay: 3s;
+        }
+
+        /* ===== Contact Form ===== */
+        .contact-section {
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .contact-form {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 0 20px #0ff;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #0ff;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #ccc;
+        }
+
+        .contact-form button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0ff;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #0ff;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+        }
+
+        .contact-form button:hover {
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #0ff, 0 0 40px #0ff inset;
+        }
+
+        /* ===== Map ===== */
+        .map-container {
+            width: 100%;
+            max-width: 800px;
+            height: 300px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 0 20px #0ff;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ===== Social Links ===== */
+        .socials {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .socials a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #0ff;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 0 10px #0ff;
+        }
+
+        .socials a:hover {
+            transform: scale(1.2);
+            background: rgba(0, 255, 255, 0.4);
+        }
+
+        /* ===== Responsive ===== */
+        @media(max-width:600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-overlay"></div>
+        <h1>📞 Biz bilan bog'laning</h1>
+        <p>Har qanday savol uchun biz tayyormiz!</p>
+
+        <div class="sticker">👗</div>
+        <div class="sticker">👜</div>
+        <div class="sticker">🕶️</div>
+        <div class="sticker">🎒</div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+
+
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11904.081170069484!2d69.241544!3d41.312831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef34d02a8b001%3A0x92e7b1eaa12f0f0!2sTashkent!5e0!3m2!1sen!2s!4v1692790000000!5m2!1sen!2s"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <!-- Socials -->
+        <div class="socials">
+            <a href="#" target="_blank">📘</a>
+            <a href="#" target="_blank">🐦</a>
+            <a href="#" target="_blank">📸</a>
+        </div>
+    </section>
+
+</body>
+
+</html>

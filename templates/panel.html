@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kassir Paneli</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container { max-width: 900px; margin: auto; }
+
+    /* HEADER */
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .header h1 { font-weight: 700; font-size: 22px; margin: 0; }
+    .stats { display: flex; gap: 15px; }
+    .stat {
+      background: #fff; padding: 10px 14px; border-radius: 8px;
+      border: 1px solid #e5e7eb; font-size: 14px; text-align: center;
+    }
+    .stat .val { font-size: 16px; font-weight: 700; color: #2563eb; }
+
+    /* SEARCH */
+    .search-bar { margin-bottom: 15px; }
+    .search-bar input {
+      width: 100%; padding: 10px 12px;
+      border: 1px solid #d1d5db; border-radius: 8px;
+      outline: none; font-size: 14px;
+    }
+
+    /* ORDER CARD */
+    .order-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .order-head { display: flex; justify-content: space-between; }
+    .customer { font-weight: 600; font-size: 15px; }
+    .time { font-size: 12px; color: #6b7280; }
+    .badge { font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: 5px; }
+    .badge.new { background:#dbeafe; color:#1d4ed8; }
+    .badge.done { background:#dcfce7; color:#15803d; }
+
+    /* ITEMS */
+    .items { font-size: 14px; color:#374151; }
+    .item {
+      padding: 4px 0;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .item:last-child { border-bottom: none; }
+
+    /* ACTIONS */
+    .actions { display: flex; gap: 6px; margin-top: 6px; }
+    .btn {
+      flex: 1; padding: 8px; border: none; border-radius: 6px;
+      font-weight: 600; font-size: 13px; cursor: pointer;
+    }
+    .btn.ok { background:#22c55e; color:white; }
+    .btn.warn { background:#facc15; color:#333; }
+    .btn.danger { background:#ef4444; color:white; }
+    .btn:hover { opacity: .9; }
+
+    /* DONE BOX */
+    #doneSection { margin-top: 25px; display: none; }
+    #toggleDone {
+      width: 100%; margin-top: 15px;
+      padding: 10px; border:none; border-radius:8px;
+      background: #2563eb; color:white; font-weight:600;
+      cursor: pointer; font-size:14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>📦 Buyurtmalar</h1>
+      <div class="stats">
+        <div class="stat"><div class="val" id="stOrders">0</div><div>Buyurtmalar</div></div>
+        <div class="stat"><div class="val" id="stItems">0</div><div>Mahsulotlar</div></div>
+      </div>
+    </div>
+
+
+
+    <!-- SEARCH -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="🔍 Mijoz yoki mahsulot qidiring..." />
+    </div>
+
+    <!-- NEW ORDERS -->
+    <div id="ordersGrid">
+      {% for order in orders %}
+      <div class="order-card" data-order-id="{{ order.id }}">
+        <div class="order-head">
+          <div>
+            <div class="customer">{{ order.customer_name }}</div>
+            <div class="time">{{ order.created_at|date:"M d, Y H:i" }}</div>
+            <div class="time">📞 {{ order.customer_phone }} | 📍 {{ order.customer_address }}</div>
+          </div>
+          <span class="badge new" data-badge>Yangi</span>
+        </div>
+        <div class="items">
+          {% for key, item in order.data.items %}
+            <div class="item">
+              {% if item.name %}{{ item.name }}{% else %}Nomi yo‘q{% endif %} — 
+              {{ item.size }} — {{ item.qty }} dona
+            </div>
+          {% endfor %}
+        </div>
+        <div class="actions">
+          <button class="btn ok" data-done>✅ Tayyor</button>
+          <button class="btn warn" data-call>📞 Qo‘ng‘iroq</button>
+          <button class="btn danger" data-delete>❌ O‘chirish</button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- TOGGLE BUTTON -->
+    <button id="toggleDone">📋 Tayyor Buyurtmalarni Ko‘rsatish</button>
+
+    <!-- DONE ORDERS -->
+    <div id="doneSection">
+      <h2>✅ Tayyor Buyurtmalar</h2>
+      <div id="doneGrid"></div>
+    </div>
+
+  </div>
+
+
+
+  <script>
+    function refreshStats(){
+      const allCards=document.querySelectorAll(".order-card");
+      document.getElementById("stOrders").textContent=allCards.length;
+      document.getElementById("stItems").textContent=[...allCards].reduce((a,c)=>a+c.querySelectorAll(".item").length,0);
+    }
+    refreshStats();
+
+    document.body.addEventListener("click",e=>{
+      const card=e.target.closest(".order-card");
+      if(!card) return;
+
+      if(e.target.matches("[data-done]")){
+        card.querySelector("[data-badge]").textContent="Tayyor";
+        card.querySelector("[data-badge]").className="badge done";
+        document.getElementById("doneGrid").appendChild(card);
+      }
+
+      if(e.target.matches("[data-call]")){
+        const phone=card.querySelector(".time")?.textContent.match(/\d+/g)?.join("");
+        if(phone) window.location.href="tel:"+phone;
+      }
+
+      if(e.target.matches("[data-delete]")){
+        if(confirm("Buyurtmani o‘chirishni xohlaysizmi?")){
+          card.remove(); refreshStats();
+        }
+      }
+    });
+
+    document.getElementById("searchInput").addEventListener("input",e=>{
+      const q=e.target.value.toLowerCase();
+      document.querySelectorAll(".order-card").forEach(card=>{
+        card.style.display=card.textContent.toLowerCase().includes(q)?"block":"none";
+      });
+    });
+
+    document.getElementById("toggleDone").addEventListener("click",()=>{
+      const sec=document.getElementById("doneSection");
+      if(sec.style.display==="none" || sec.style.display===""){
+        sec.style.display="block";
+        document.getElementById("toggleDone").textContent="❌ Tayyor Buyurtmalarni Yopish";
+      } else {
+        sec.style.display="none";
+        document.getElementById("toggleDone").textContent="📋 Tayyor Buyurtmalarni Ko‘rsatish";
+      }
+    });
+  </script>
+</body>
+</html>

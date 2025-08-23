@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ro‘yxatdan o‘tish</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f3f4f6; /* soft neutral background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .register-card {
+      width: 90%;
+      max-width: 400px;
+      background: #ffffff;
+      padding: 35px 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #111827;
+      font-size: 24px;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    label {
+      display: block;
+      color: #374151;
+      font-size: 14px;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      background: #f9fafb;
+      color: #111827;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 8px rgba(59,130,246,0.3);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: #3b82f6;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px rgba(37,99,235,0.4);
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+    }
+
+    @media (max-width: 480px) {
+      h2 { font-size: 20px; }
+      input, button { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-card">
+    <h2>🚀 Ro‘yxatdan o‘tish</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <label>👤 Foydalanuvchi nomi</label>
+      {{ form.username }}
+
+      <label>📧 Elektron pochta</label>
+      {{ form.email }}
+
+      <label>📞 Telefon</label>
+      {{ form.phone }}
+
+      <label>🏠 Manzil</label>
+      {{ form.address }}
+
+      <label>🖼️ Rasm yuklash</label>
+      {{ form.avatar }}
+
+      <label>🔑 Parol</label>
+      {{ form.password1 }}
+
+      <label>✅ Parolni tasdiqlang</label>
+      {{ form.password2 }}
+
+      <button type="submit">Tasdiqlash</button>
+    </form>
+  </div>
+</body>
+</html>
