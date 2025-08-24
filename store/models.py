@@ -1,6 +1,5 @@
-from django.db import models
 from django.conf import settings
-from pyuploadcare.dj.models import ImageField # pyright: ignore[reportMissingImports]
+from django.db import models
 
 class Product(models.Model):
     CATEGORY_CHOICES = [
@@ -11,7 +10,7 @@ class Product(models.Model):
     ]
     name = models.CharField(max_length=255)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
-    image = ImageField(blank=True, manual_crop="")  # Uploadcare ImageField
+    image = models.ImageField(upload_to='products/')
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):

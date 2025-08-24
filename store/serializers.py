@@ -5,27 +5,16 @@ from .models import Product, ProductStock, Order
 class ProductStockSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductStock
-        fields = ["size", "quantity"]
+        fields = ['size', 'quantity']
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
+    stocks = ProductStockSerializer(many=True, read_only=True)
+    image = serializers.ImageField(use_url=True)
 
     class Meta:
         model = Product
         fields = ['id', 'name', 'image', 'price', 'category', 'stocks']
-
-    def get_image(self, obj):
-        try:
-            if obj.image and hasattr(obj.image, "cdn_url"):
-                return obj.image.cdn_url  # ✅ to‘g‘ri
-        except Exception:
-            return None
-        return None
-
-
-
-
 
 
 class OrderSerializer(serializers.ModelSerializer):

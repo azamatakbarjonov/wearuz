@@ -8,10 +8,7 @@ DEBUG = False
 
 # Uploadcare sozlamalari
 # Uploadcare sozlamalari
-UPLOADCARE = {
-    'pub_key': os.getenv("UPLOADCARE_PUBLIC_KEY"),
-    'secret': os.getenv("UPLOADCARE_SECRET_KEY"),
-}
+
 
 
 ALLOWED_HOSTS = ['*']  # vaqtincha *, productionda domen qo'yasan
@@ -24,7 +21,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'pyuploadcare.dj',
     'widget_tweaks',
     "corsheaders",
     'home',
