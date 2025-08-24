@@ -6,6 +6,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k4_hb#()y#5+9jop(&cc)+kco75tzzayp$*24%$m0576z=fz3='
 DEBUG = False
 
+# Uploadcare sozlamalari
+UPLOADCARE_PUBLIC_KEY = os.getenv("UPLOADCARE_PUBLIC_KEY", "demopublickey")
+UPLOADCARE_SECRET_KEY = os.getenv("UPLOADCARE_SECRET_KEY", "supersecretkey")
 
 ALLOWED_HOSTS = ['*']  # vaqtincha *, productionda domen qo'yasan
 
@@ -26,7 +29,6 @@ INSTALLED_APPS = [
     'panel',
     'contact',
 ]
-
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
