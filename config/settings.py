@@ -9,8 +9,8 @@ DEBUG = False
 # Uploadcare sozlamalari
 # Uploadcare sozlamalari
 UPLOADCARE = {
-    'pub_key': '40648c8edd4acbc2ad49',
-    'secret': '631f91c873e748ab24ab',
+    'pub_key': os.getenv("UPLOADCARE_PUBLIC_KEY"),
+    'secret': os.getenv("UPLOADCARE_SECRET_KEY"),
 }
 
 

@@ -9,20 +9,24 @@ class ProductStockSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    stocks = ProductStockSerializer(many=True, read_only=True)  # related_name="stocks"
     image = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
-        fields = ["id", "name", "image", "price", "category", "stocks"]
+        fields = ['id', 'name', 'image', 'price', 'category', 'stocks']
 
     def get_image(self, obj):
         try:
-            if obj.image:
-                return obj.image.cdn_url  # Uploadcare link qaytadi
+            if obj.image and hasattr(obj.image, "cdn_url"):
+                return obj.image.cdn_url  # ✅ to‘g‘ri
         except Exception:
             return None
         return None
+
+
+
+
+
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
