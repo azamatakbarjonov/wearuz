@@ -7,8 +7,12 @@ SECRET_KEY = 'django-insecure-k4_hb#()y#5+9jop(&cc)+kco75tzzayp$*24%$m0576z=fz3=
 DEBUG = False
 
 # Uploadcare sozlamalari
-UPLOADCARE_PUBLIC_KEY = os.getenv("UPLOADCARE_PUBLIC_KEY", "demopublickey")
-UPLOADCARE_SECRET_KEY = os.getenv("UPLOADCARE_SECRET_KEY", "supersecretkey")
+# Uploadcare sozlamalari
+UPLOADCARE = {
+    'pub_key': '40648c8edd4acbc2ad49',
+    'secret': '631f91c873e748ab24ab',
+}
+
 
 ALLOWED_HOSTS = ['*']  # vaqtincha *, productionda domen qo'yasan
 
@@ -20,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'pyuploadcare.dj',
     'widget_tweaks',
     "corsheaders",
     'home',
